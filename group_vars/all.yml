@@ -3,7 +3,7 @@
 
 
 ### Python関連
-python_version: anaconda3-4.1.0
+python_version: anaconda3-4.1.1
 
 ### R関連
 r_studio_binary_url: https://download2.rstudio.org/

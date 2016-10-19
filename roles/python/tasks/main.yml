@@ -37,7 +37,7 @@
       "
 
 - name: Xgboostインストール
-  pip: name=xgboost executable=/home/vagrant/.pyenv/shims/pip
+  pip: name=xgboost executable=/home/{{ ansible_env.USER }}/.pyenv/shims/pip
 
 - name: Rodeoダウンロード
   get_url: url="https://www.yhat.com/products/rodeo/downloads/linux_64" dest=~/rodeo.deb
