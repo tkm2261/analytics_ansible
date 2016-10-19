@@ -72,7 +72,8 @@
 
 - name: Jupyter起動
   become: yes
+  ignore_errors: True
   shell: |
     supervisorctl reread
-    supervisorctl reload    
+    supervisorctl reload
     supervisorctl start jupyter
