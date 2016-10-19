@@ -1,0 +1,21 @@
+---
+
+- name: AWS CLIインストール
+  become: yes
+  pip: name=awscli executable=/home/vagrant/.pyenv/shims/pip
+
+- name: AWS Credential設定　KEYはgroup_varsに記載
+  args:
+    creates: ~/.aws
+  shell: |
+    mkdir ~/.aws 
+    (
+      echo '[default]'
+      echo 'aws_access_key_id = {{ aws_access_key }}'
+      echo 'aws_secret_access_key = {{ aws_secret_access_key }}'
+    ) > ~/.aws/credentials
+    (
+      echo '[default]'
+      echo 'output = json'
+      echo 'region = ap-northeast-1'
+    ) > ~/.aws/credentials

@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  roles:
+   - common
+  tags:
+   - python_only
+   - r_only
+   
+- hosts: all
+  roles:   
+   - python
+  tags:
+   - python_only
+
+- hosts: all
+  roles:   
+   - R
+  tags:
+   - r_only
+
+- hosts: all
+  roles:
+   - aws
+   - gcp   
+  tags:
+   - python_only
+   - r_only

@@ -1,0 +1,5 @@
+- name: GCP SDKのインストール。認証は面倒なので各自ログイン後gcloud initを実行
+  apt: name={{ item }} state=latest update_cache=yes
+  become: yes
+  with_items:
+     - google-cloud-sdk

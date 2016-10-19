@@ -1,0 +1,14 @@
+---
+
+- name: 基本パッケージをインストール。初回は時間かかるのでコーヒーでも飲んでて下さい。(各自好きに追加して下さい。Python、R関連は別role)
+  apt: name={{ item }} state=latest update_cache=yes
+  become: yes
+  with_items:
+     - git
+     - vim
+     - emacs
+     - build-essential
+     - mosh
+     - tmux
+     - supervisor
+

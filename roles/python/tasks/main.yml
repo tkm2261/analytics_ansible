@@ -1,0 +1,78 @@
+---
+
+- name: Python関連apt-get (本体はpyenv, 大体Rodeo関連（Rodeoはサーバで動かないことが判明したが一応入れておく）)
+  apt: name={{ item }} state=latest
+  become: yes
+  with_items:
+     - libxml2-dev
+     - libxslt1-dev
+     - python-dev
+     - zlib1g-dev
+     - libdbusmenu-gtk4
+     - libgtk2.0-dev
+     - libindicator7
+     - indicator-application
+     - libappindicator1
+     - libnotify4
+     - libnotify-bin
+     - libnss3-dev
+
+- name: pyenv導入、インストールバージョンはgroup_varsで管理
+  args:
+    creates: ~/.pyenv
+  shell: |
+    git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+    (
+      echo 'export PYENV_ROOT=~/.pyenv'
+      echo 'export PATH=$PYENV_ROOT/bin:$PATH'
+      echo 'eval "$(pyenv init -)"'
+    ) >> ~/.bash_profile
+
+- name: Anacondaインストールとpyenv globalに設定。時間かかります。アップデートは更に時間かかるのでしてません。group_varsのインストールバージョンを変えるか、各自"conda update --all -y"等実行をお願いします。
+  shell: |
+    bash -lc " \
+      pyenv install {{python_version}}; \
+      pyenv rehash; \
+      pyenv global {{python_version}}; \
+      "
+
+- name: Xgboostインストール
+  pip: name=xgboost executable=/home/vagrant/.pyenv/shims/pip
+
+- name: Rodeoダウンロード
+  get_url: url="https://www.yhat.com/products/rodeo/downloads/linux_64" dest=~/rodeo.deb
+
+- name: Rodeoインストール
+  become: yes
+  shell: dpkg -i rodeo.deb
+
+- name: supervisor起動
+  service: name=supervisor state=started enabled=yes
+
+#- name: Rodeoデーモン設定 port:8888で起動
+#  become: yes
+#  template: src=rodeo.conf dest=/etc/supervisor/conf.d/rodeo.conf
+
+
+#- name: Rodeo起動
+#  become: yes
+#  shell: |
+#    sudo supervisorctl reread
+#    sudo supervisorctl start rodeo
+
+- name: Jupyter設定ファイルディレクトリ作成
+  file: path=~/.jupyter state=directory
+
+- name: Jupyter設定ファイル設置
+  template: src=jupyter_notebook_config.py dest=~/.jupyter/jupyter_notebook_config.py
+
+- name: Jupyterデーモン設定 port:8888で起動
+  become: yes
+  template: src=jupyter.conf dest=/etc/supervisor/conf.d/jupyter.conf
+
+- name: Jupyter起動
+  become: yes
+  shell: |
+    supervisorctl reread
+    supervisorctl reload    
+    supervisorctl start jupyter

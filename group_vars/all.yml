@@ -1,0 +1,16 @@
+# 環境ごとの変数
+# 自動でAWSのSDKを使いたい場合は設定する。GCPの認証は各自
+
+
+### Python関連
+python_version: anaconda3-4.1.0
+
+### R関連
+r_studio_binary_url: https://download2.rstudio.org/
+r_studio_binary_name: rstudio-server-0.99.903-amd64.deb
+r_ubuntu_version_name: wily
+
+
+### AWS関連
+aws_access_key: hogehoge
+aws_secret_access_key: hogehoge
