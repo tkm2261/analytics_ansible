@@ -4,6 +4,8 @@
 
 方針としては、全部入りを目指しているので、必要と思うものはバンバン入れて下さい。
 
+**Ansibleはpython2系のみ**
+
 # 環境概要
 
 Infrastructure as Codeなんでここには概要のみ
@@ -12,8 +14,7 @@ Infrastructure as Codeなんでここには概要のみ
 
 * Anaconda - バージョンはgroup_varsで管理
 * xgboost
-
-jupyter notebook が8888で自動起動
+* jupyter notebook が8888で自動起動
 
 ### R
 
