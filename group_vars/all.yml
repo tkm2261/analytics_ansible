@@ -8,7 +8,6 @@ python_version: anaconda3-4.1.1
 ### R関連
 r_studio_binary_url: https://download2.rstudio.org/
 r_studio_binary_name: rstudio-server-0.99.903-amd64.deb
-r_ubuntu_version_name: wily
 
 
 ### AWS関連

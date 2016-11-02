@@ -1,10 +1,10 @@
 ---
 
-- name: Rリポジトリ登録。Ubuntuバージョンをgroup_varsで管理。自動取得にしたいが方法がわからないので。誰かお願いします
+- name: Rリポジトリ登録。Ubuntuバージョンはansible_lsb.codename|lowerで取得可能
   become: yes
   lineinfile: >
     dest=/etc/apt/sources.list
-    line="deb http://cran.ism.ac.jp//bin/linux/ubuntu/ {{ r_ubuntu_version_name }}/"
+    line="deb http://cran.ism.ac.jp//bin/linux/ubuntu/ {{ ansible_lsb.codename|lower }}"
 
 - name: Rリポジトリ公開鍵登録
   become: yes
