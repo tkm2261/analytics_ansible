@@ -2,7 +2,7 @@
 
 - name: AWS CLIインストール
   become: yes
-  pip: name=awscli executable=/home/vagrant/.pyenv/shims/pip
+  pip: name=awscli executable=/home/{{ ansible_user }}/.pyenv/shims/pip
 
 - name: AWS Credential設定　KEYはgroup_varsに記載
   args:
