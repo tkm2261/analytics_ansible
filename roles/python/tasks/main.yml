@@ -39,26 +39,9 @@
 - name: Xgboostインストール
   pip: name=xgboost executable=/home/{{ ansible_env.USER }}/.pyenv/shims/pip
 
-- name: Rodeoダウンロード
-  get_url: url="https://www.yhat.com/products/rodeo/downloads/linux_64" dest=~/rodeo.deb
-
-- name: Rodeoインストール
-  become: yes
-  shell: dpkg -i rodeo.deb
 
 - name: supervisor起動
   service: name=supervisor state=started enabled=yes
-
-#- name: Rodeoデーモン設定 port:8888で起動
-#  become: yes
-#  template: src=rodeo.conf dest=/etc/supervisor/conf.d/rodeo.conf
-
-
-#- name: Rodeo起動
-#  become: yes
-#  shell: |
-#    sudo supervisorctl reread
-#    sudo supervisorctl start rodeo
 
 - name: Jupyter設定ファイルディレクトリ作成
   file: path=~/.jupyter state=directory

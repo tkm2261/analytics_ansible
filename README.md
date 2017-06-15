@@ -41,6 +41,9 @@ Infrastructure as Codeなんでここには概要のみ
 # ansible-playbook -i "[IPアドレス]," -u [ユーザ名] -k site.yml
 # 秘密鍵指定は --private-key オプション
 ansible-playbook -i "192.168.33.10," -u vagrant -k site.yml
+
+# 時間掛かるのでローカル(分析サーバ上で)実行したい場合は以下
+ansible-playbook -i "localhost," --connection=local site.yml
 ```
 
 Anacondaインストールに非常に時間かかるので、PythonのみRのみのインストールにも対応
